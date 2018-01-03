@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "alfresco-event-gateway-poc.fullname" . }}
+  labels:
+    app: {{ template "alfresco-event-gateway-poc.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "alfresco-event-gateway-poc.fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MESSAGING_BROKER_URL
+              value: {{ .Values.messaging.broker.url }}
+            - name: KAFKA_HOST
+              value: {{ .Values.kafka.host }}
+            - name: KAFKA_PORT
+              value: "{{ .Values.kafka.port }}"
+          ports:
+            - containerPort: {{ .Values.image.internalPort }}

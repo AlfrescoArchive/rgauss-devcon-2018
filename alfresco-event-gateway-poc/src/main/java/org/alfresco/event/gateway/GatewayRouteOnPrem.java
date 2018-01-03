@@ -16,10 +16,12 @@
 package org.alfresco.event.gateway;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GatewayRoute extends RouteBuilder
+@Profile({"on-prem", "default"})
+public class GatewayRouteOnPrem extends RouteBuilder
 {
     @Override
     public void configure() throws Exception {

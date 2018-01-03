@@ -1,0 +1,21 @@
+replicaCount: 1
+#registryPullSecrets: quay-registry-secret
+
+image:
+  repository: alfresco/alfresco-event-gateway-poc
+  tag: 0.1-SNAPSHOT
+  pullPolicy: IfNotPresent
+  internalPort: 8080
+service:
+  name: alfresco-event-gateway-poc
+  # If running on AWS choose LoadBalancer as service Type
+  type: NodePort
+  externalPort: 8585
+ingress:
+  path: /alfresco-event-gateway-poc
+kafka:
+  host: kafka
+  port: 9092
+messaging:
+  broker:
+    url: amqp://activemq:5672

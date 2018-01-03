@@ -1,0 +1,15 @@
+replicaCount: 1
+#registryPullSecrets: quay-registry-secret
+
+image:
+  repository: spotify/kafka
+  tag: latest
+  pullPolicy: Always
+  internalPort: 9092
+service:
+  name: kafka
+  # If running on AWS choose LoadBalancer as service Type
+  type: NodePort
+  externalPort: 9092
+ingress:
+  path: /kafka

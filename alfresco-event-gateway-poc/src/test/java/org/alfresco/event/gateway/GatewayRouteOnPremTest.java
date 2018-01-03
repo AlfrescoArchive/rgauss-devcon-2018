@@ -31,7 +31,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GatewayRouteTest
+public class GatewayRouteOnPremTest
 {
     @Autowired
     private CamelContext camelContext;

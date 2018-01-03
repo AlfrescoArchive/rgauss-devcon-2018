@@ -27,7 +27,9 @@ Note that you'll need to add `-DskipTests` if you're not running the TensorFlow 
 
 To manually run the service you must first have postgres available.  You could do this via Docker:
 
-    docker run -p 5432:5432 --name postgres postgres:9.4
+```bash
+docker run -p 5432:5432 --name postgres postgres:9.4
+```
 
 Then run the service:
 

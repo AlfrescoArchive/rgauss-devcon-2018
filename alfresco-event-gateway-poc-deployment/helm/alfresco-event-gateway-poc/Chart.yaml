@@ -1,0 +1,9 @@
+name: alfresco-event-gateway-poc
+version: 0.1
+description: Alfresco Event Gateway PoC
+keywords:
+  - alfresco
+  - event
+  - gateway
+maintainers:
+  - name: Alfresco

@@ -1,0 +1,4 @@
+dependencies:
+  - name: kafka-poc
+    version: ^0.1
+    repository: file://../kafka-poc
