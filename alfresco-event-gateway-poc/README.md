@@ -35,3 +35,9 @@ Then run the service:
 ```bash
 java -jar target/alfresco-event-gateway-poc-0.1-SNAPSHOT.jar
 ```
+
+At that point you should be able to consume from Kafka.  For example, after [downloading the console tools](https://kafka.apache.org/downloads) you could run the consumer to display events received:
+
+```bash
+./kafka-console-consumer.sh --topic AlfrescoEvents --zookeeper localhost:2181
+```
