@@ -13,9 +13,15 @@ service:
   externalPort: 8585
 ingress:
   path: /alfresco-event-gateway-poc
-kafka:
-  host: kafka
-  port: 9092
+eventgateway:
+  kafka:
+  # Kafka host is currently expected at .Release.Name-kafka-poc 
+  #  host: kafka
+    port: 9092
 messaging:
   broker:
     url: amqp://activemq:5672
+kafka:
+  replicas: 1
+  zookeeper:
+    servers: 1

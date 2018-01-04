@@ -11,7 +11,7 @@ Apache Kafka should also be running.
 # Building
 
 ```bash
-mvn clean package
+mvn clean install
 ```
 
 Note that you'll need to add `-DskipTests` if you're not running ActiveMQ and Kafka.
@@ -43,5 +43,5 @@ java -jar target/alfresco-event-gateway-poc-0.1-SNAPSHOT.jar
 At that point you should be able to consume from Kafka.  For example, after [downloading the console tools](https://kafka.apache.org/downloads) you could run the consumer to display events received:
 
 ```bash
-./kafka-console-consumer.sh --topic AlfrescoEvents --bootstrap-server localhost:9092
+./kafka-console-consumer.sh --topic alfresco.repo.events.nodes --bootstrap-server localhost:9092
 ```
