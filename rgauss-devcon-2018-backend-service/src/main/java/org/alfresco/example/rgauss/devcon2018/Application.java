@@ -20,7 +20,6 @@ import java.io.InputStream;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -49,32 +48,24 @@ public class Application
     }
 
     @Bean
-    public CommandLineRunner init(AlfrescoEventListener eventListener)
+    public AlfrescoNodeEventConsumer alfrescoNodeEventConsumer()
     {
-        return (args) -> {
-            eventListener.start();
-        };
+        return new AlfrescoNodeEventConsumerImpl();
     }
-    
-    @Bean
-    public AlfrescoEventListener eventListener()
-    {
-        return new AlfrescoEventListener();
-    }
-    
+
     @Bean
     public ImageRecognitionParser imageParser()
     {
         return new ImageRecognitionParserTikaImpl();
     }
-    
+
     @Bean
     public Tika tika() throws Exception
     {
         InputStream stream = loader.getResourceAsStream(tikaConfig);
         return new Tika(new TikaConfig(stream));
     }
-    
+
     @Bean
     public WebMvcConfigurer corsConfigurer()
     {

@@ -4,6 +4,8 @@ This project contains the artifacts to deploy the Alfresco Event Gateway PoC via
 
 # Build Docker Image
 
+You must first build the jar artifact.  See [alfresco-event-gateway-poc](../alfresco-event-gateway-poc).
+
 To build the Docker image run the script which gets the service jar:
 
 ```bash

@@ -15,28 +15,18 @@
  */
 package org.alfresco.example.rgauss.devcon2018;
 
+import org.alfresco.events.types.BasicNodeEvent;
+
 /**
- * Representation of a content event from the Event Gateway
+ * Defines a listener for Alfresco node events from the Event Gateway
  */
-public class ContentEvent
+public interface AlfrescoNodeEventConsumer
 {
-    private String contentId;
-    private String contentUri;
-    
-    public String getContentId()
-    {
-        return contentId;
-    }
-    public void setContentId(String contentId)
-    {
-        this.contentId = contentId;
-    }
-    public String getContentUri()
-    {
-        return contentUri;
-    }
-    public void setContentUri(String contentUri)
-    {
-        this.contentUri = contentUri;
-    }
+    /**
+     * Processes a node event
+     * 
+     * @param event
+     * @throws Exception
+     */
+    public void onReceive(BasicNodeEvent event) throws Exception;
 }

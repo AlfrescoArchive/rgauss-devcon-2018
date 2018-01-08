@@ -18,14 +18,21 @@ package org.alfresco.example.rgauss.devcon2018;
 import java.io.InputStream;
 import java.util.List;
 
+import org.alfresco.events.types.BasicNodeEvent;
+import org.alfresco.events.types.NodeContentPutEvent;
+import org.apache.camel.Handler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Listens for Alfresco events from the Event Gateway and when a relevant event is encountered
  * sends the content for image tag recognition and persists the results.
  */
-public class AlfrescoEventListener
+public class AlfrescoNodeEventConsumerImpl implements AlfrescoNodeEventConsumer
 {
+    private static final Log logger = LogFactory.getLog(AlfrescoNodeEventConsumerImpl.class);
+
     private static final ClassLoader loader = Application.class.getClassLoader();
 
     @Autowired
@@ -34,28 +41,36 @@ public class AlfrescoEventListener
     @Autowired
     private RecognitionTagResultRepository repository;
 
-    public void start()
-    {
-        // TODO
-    }
-
     /**
      * Processes an event
      * 
      * @param event
      * @throws Exception
      */
-    public void onReceive(ContentEvent event) throws Exception
+    @Handler
+    public void onReceive(BasicNodeEvent event) throws Exception
     {
         if (event == null)
         {
             return;
         }
-        InputStream inputStream = getInputStream(event.getContentUri());
-        
-        List<RecognitionTagResult> results = parser.parse(event.getContentId(), inputStream);
-        
-        repository.save(results);
+
+        logger.info("Received event: " + event.toString());
+
+        if (NodeContentPutEvent.EVENT_TYPE.equals(event.getType()))
+        {
+            String nodeId = event.getNodeId();
+            InputStream inputStream = getInputStream(event.getNodeId());
+
+            if (inputStream == null)
+            {
+                logger.error("Could not obtain input stream for node " + nodeId);
+                return;
+            }
+
+            List<RecognitionTagResult> results = parser.parse(event.getNodeId(), inputStream);
+            repository.save(results);
+        }
     }
 
     /**
@@ -64,17 +79,19 @@ public class AlfrescoEventListener
      * @param contentUri
      * @return the input stream
      */
-    protected InputStream getInputStream(String contentUri)
+    protected InputStream getInputStream(String nodeId)
     {
-        if (contentUri == null)
+        if (nodeId == null)
         {
             return null;
         }
-        if (contentUri.startsWith("classpath:"))
+        if (nodeId.startsWith("classpath:"))
         {
-            String path = contentUri.substring(10, contentUri.length());
+            String path = nodeId.substring(10, nodeId.length());
             return loader.getResourceAsStream(path);
         }
+        // TODO get the content from the Alfresco REST API
+        
         return null;
     }
 }

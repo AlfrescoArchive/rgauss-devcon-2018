@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.alfresco.event.gateway;
+package org.alfresco.example.rgauss.devcon2018;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spi.DataFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile({"on-prem", "default"})
-public class GatewayRouteOnPrem extends RouteBuilder
+@Profile({"kafka", "default"})
+public class AlfrescoNodeEventConsumptionRouteKafka extends RouteBuilder
 {
+    @Autowired
+    private DataFormat dataFormat;
+    
     @Override
     public void configure() throws Exception {
-        from("amqp:topic:{{route.from.topic}}")
-        .to("kafka:{{kafka.host}}:{{kafka.port}}"
+        from("kafka:{{kafka.host}}:{{kafka.port}}"
                 + "?brokers={{kafka.host}}:{{kafka.port}}"
-                + "&topic={{route.to.topic}}");
+                + "&topic={{kafka.topic.nodeEvents}}")
+        .unmarshal(dataFormat)
+        .to("bean:alfrescoNodeEventListener");
     }
 }
