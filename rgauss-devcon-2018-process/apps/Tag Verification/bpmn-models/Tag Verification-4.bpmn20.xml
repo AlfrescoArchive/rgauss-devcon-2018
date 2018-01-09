@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef" xmlns:modeler="http://activiti.com/modeler" modeler:version="1.0en" modeler:exportDateTime="20180107180611533" modeler:modelId="4" modeler:modelVersion="6" modeler:modelLastUpdated="1515348237265">
+  <process id="TagVerification" name="Tag Verification" isExecutable="true">
+    <startEvent id="startEvent1" activiti:formKey="5">
+      <extensionElements>
+        <modeler:form-reference-id><![CDATA[5]]></modeler:form-reference-id>
+        <modeler:form-reference-name><![CDATA[Tag Verification Form]]></modeler:form-reference-name>
+        <modeler:editor-resource-id><![CDATA[startEvent1]]></modeler:editor-resource-id>
+      </extensionElements>
+    </startEvent>
+    <userTask id="sid-89A6AD67-9B19-4710-BBA9-44AFECD11BB9" name="Verify Tags" activiti:assignee="2" activiti:formKey="5">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:form-reference-id><![CDATA[5]]></modeler:form-reference-id>
+        <modeler:form-reference-name><![CDATA[Tag Verification Form]]></modeler:form-reference-name>
+        <modeler:activiti-idm-assignee><![CDATA[true]]></modeler:activiti-idm-assignee>
+        <modeler:assignee-info-email><![CDATA[ray.gauss@alfresco.com]]></modeler:assignee-info-email>
+        <modeler:assignee-info-firstname><![CDATA[Ray]]></modeler:assignee-info-firstname>
+        <modeler:assignee-info-lastname><![CDATA[Gauss]]></modeler:assignee-info-lastname>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[sid-89A6AD67-9B19-4710-BBA9-44AFECD11BB9]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-E6FFE097-F794-49DB-BA36-4920C0747992" sourceRef="startEvent1" targetRef="sid-89A6AD67-9B19-4710-BBA9-44AFECD11BB9">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-E6FFE097-F794-49DB-BA36-4920C0747992]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <serviceTask id="sid-D85B8519-6490-4440-844D-397C8352E6A4" name="Update Tag 2" activiti:async="true" activiti:delegateExpression="${activiti_restCallDelegate}">
+      <extensionElements>
+        <activiti:field name="baseEndpoint">
+          <activiti:string><![CDATA[1]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="baseEndpointName">
+          <activiti:string><![CDATA[ACS REST Admin]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="restUrl">
+          <activiti:string><![CDATA[nodes/${alfrescocontentnodeid}/tags]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="httpMethod">
+          <activiti:string><![CDATA[POST]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="requestMappingJSONTemplate">
+          <activiti:expression><![CDATA[{
+  "tag":"${tag2}"
+}]]></activiti:expression>
+        </activiti:field>
+        <modeler:request-header modeler:headerName="Authorization" modeler:headerValue="Basic YWRtaW46YWRtaW4="/>
+        <modeler:editor-resource-id><![CDATA[sid-D85B8519-6490-4440-844D-397C8352E6A4]]></modeler:editor-resource-id>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sid-D3189641-A67B-4604-9DEB-A4EAA5E14414" name="Update Tag 1" activiti:async="true" activiti:delegateExpression="${activiti_restCallDelegate}">
+      <extensionElements>
+        <activiti:field name="baseEndpoint">
+          <activiti:string><![CDATA[1]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="baseEndpointName">
+          <activiti:string><![CDATA[ACS REST Admin]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="restUrl">
+          <activiti:string><![CDATA[nodes/${alfrescocontentnodeid}/tags]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="httpMethod">
+          <activiti:string><![CDATA[POST]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="requestMappingJSONTemplate">
+          <activiti:expression><![CDATA[{
+  "tag":"${tag1}"
+}]]></activiti:expression>
+        </activiti:field>
+        <modeler:request-header modeler:headerName="Authorization" modeler:headerValue="Basic YWRtaW46YWRtaW4="/>
+        <modeler:editor-resource-id><![CDATA[sid-D3189641-A67B-4604-9DEB-A4EAA5E14414]]></modeler:editor-resource-id>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sid-FDA015DB-D59F-4A0E-BFB7-B59EB7454339" name="Update Tag 3" activiti:async="true" activiti:delegateExpression="${activiti_restCallDelegate}">
+      <extensionElements>
+        <activiti:field name="baseEndpoint">
+          <activiti:string><![CDATA[1]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="baseEndpointName">
+          <activiti:string><![CDATA[ACS REST Admin]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="restUrl">
+          <activiti:string><![CDATA[nodes/${alfrescocontentnodeid}/tags]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="httpMethod">
+          <activiti:string><![CDATA[POST]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="requestMappingJSONTemplate">
+          <activiti:expression><![CDATA[{
+  "tag":"${tag3}"
+}]]></activiti:expression>
+        </activiti:field>
+        <modeler:request-header modeler:headerName="Authorization" modeler:headerValue="Basic YWRtaW46YWRtaW4="/>
+        <modeler:editor-resource-id><![CDATA[sid-FDA015DB-D59F-4A0E-BFB7-B59EB7454339]]></modeler:editor-resource-id>
+      </extensionElements>
+    </serviceTask>
+    <inclusiveGateway id="sid-A8BE5179-9365-44D1-84F2-B685F2799B5B">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-A8BE5179-9365-44D1-84F2-B685F2799B5B]]></modeler:editor-resource-id>
+      </extensionElements>
+    </inclusiveGateway>
+    <sequenceFlow id="sid-8762346B-6F9E-4E5A-9712-7E34F642BF1A" sourceRef="sid-D3189641-A67B-4604-9DEB-A4EAA5E14414" targetRef="sid-A8BE5179-9365-44D1-84F2-B685F2799B5B">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-8762346B-6F9E-4E5A-9712-7E34F642BF1A]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sid-C9F4B876-F2E5-409F-B39D-28CB6F9862E0" sourceRef="sid-D85B8519-6490-4440-844D-397C8352E6A4" targetRef="sid-A8BE5179-9365-44D1-84F2-B685F2799B5B">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-C9F4B876-F2E5-409F-B39D-28CB6F9862E0]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sid-1A683034-DD4B-453F-9CF8-51F31D999CDA" sourceRef="sid-FDA015DB-D59F-4A0E-BFB7-B59EB7454339" targetRef="sid-A8BE5179-9365-44D1-84F2-B685F2799B5B">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-1A683034-DD4B-453F-9CF8-51F31D999CDA]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <endEvent id="sid-3BAC0F95-4DF1-4183-A124-16B3A0036A1B">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-3BAC0F95-4DF1-4183-A124-16B3A0036A1B]]></modeler:editor-resource-id>
+      </extensionElements>
+    </endEvent>
+    <sequenceFlow id="sid-8A4FEAB1-9375-448C-810A-4530449EF376" sourceRef="sid-A8BE5179-9365-44D1-84F2-B685F2799B5B" targetRef="sid-3BAC0F95-4DF1-4183-A124-16B3A0036A1B">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-8A4FEAB1-9375-448C-810A-4530449EF376]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <inclusiveGateway id="sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F]]></modeler:editor-resource-id>
+      </extensionElements>
+    </inclusiveGateway>
+    <sequenceFlow id="sid-5B4551F1-314E-4184-BAEA-06C9E9D1050D" sourceRef="sid-89A6AD67-9B19-4710-BBA9-44AFECD11BB9" targetRef="sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-5B4551F1-314E-4184-BAEA-06C9E9D1050D]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sid-9A374C60-96D2-4047-8007-ACA125C18DE1" sourceRef="sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F" targetRef="sid-D3189641-A67B-4604-9DEB-A4EAA5E14414">
+      <extensionElements>
+        <modeler:conditionDefinition modeler:index="0" modeler:leftFormFieldId="tag1" modeler:operator="notEmpty"/>
+        <modeler:editor-resource-id><![CDATA[sid-9A374C60-96D2-4047-8007-ACA125C18DE1]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(!(activiti_flowConditionsBean.isEmpty(execution, 'tag1')) )}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-01E03244-0858-461F-9BA2-B837BEEA0BE9" sourceRef="sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F" targetRef="sid-D85B8519-6490-4440-844D-397C8352E6A4">
+      <extensionElements>
+        <modeler:conditionDefinition modeler:index="0" modeler:leftFormFieldId="tag2" modeler:operator="notEmpty"/>
+        <modeler:editor-resource-id><![CDATA[sid-01E03244-0858-461F-9BA2-B837BEEA0BE9]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(!(activiti_flowConditionsBean.isEmpty(execution, 'tag2')) )}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-D9E8DD87-EC3D-4E54-BA8C-727BFAA565DD" sourceRef="sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F" targetRef="sid-FDA015DB-D59F-4A0E-BFB7-B59EB7454339">
+      <extensionElements>
+        <modeler:conditionDefinition modeler:index="0" modeler:leftFormFieldId="tag3" modeler:operator="notEmpty"/>
+        <modeler:editor-resource-id><![CDATA[sid-D9E8DD87-EC3D-4E54-BA8C-727BFAA565DD]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(!(activiti_flowConditionsBean.isEmpty(execution, 'tag3')) )}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TagVerification">
+    <bpmndi:BPMNPlane bpmnElement="TagVerification" id="BPMNPlane_TagVerification">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-89A6AD67-9B19-4710-BBA9-44AFECD11BB9" id="BPMNShape_sid-89A6AD67-9B19-4710-BBA9-44AFECD11BB9">
+        <omgdc:Bounds height="80.0" width="100.0" x="177.0" y="138.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D85B8519-6490-4440-844D-397C8352E6A4" id="BPMNShape_sid-D85B8519-6490-4440-844D-397C8352E6A4">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="138.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D3189641-A67B-4604-9DEB-A4EAA5E14414" id="BPMNShape_sid-D3189641-A67B-4604-9DEB-A4EAA5E14414">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-FDA015DB-D59F-4A0E-BFB7-B59EB7454339" id="BPMNShape_sid-FDA015DB-D59F-4A0E-BFB7-B59EB7454339">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="240.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A8BE5179-9365-44D1-84F2-B685F2799B5B" id="BPMNShape_sid-A8BE5179-9365-44D1-84F2-B685F2799B5B">
+        <omgdc:Bounds height="40.0" width="40.0" x="570.0" y="158.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-3BAC0F95-4DF1-4183-A124-16B3A0036A1B" id="BPMNShape_sid-3BAC0F95-4DF1-4183-A124-16B3A0036A1B">
+        <omgdc:Bounds height="28.0" width="28.0" x="660.0" y="164.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F" id="BPMNShape_sid-9A690BE9-C775-46E4-B8A2-CDE57A13BE8F">
+        <omgdc:Bounds height="40.0" width="40.0" x="324.0" y="158.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-D9E8DD87-EC3D-4E54-BA8C-727BFAA565DD" id="BPMNEdge_sid-D9E8DD87-EC3D-4E54-BA8C-727BFAA565DD">
+        <omgdi:waypoint x="355.0044052863436" y="186.99559471365637"/>
+        <omgdi:waypoint x="420.5418719211823" y="240.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C9F4B876-F2E5-409F-B39D-28CB6F9862E0" id="BPMNEdge_sid-C9F4B876-F2E5-409F-B39D-28CB6F9862E0">
+        <omgdi:waypoint x="520.0" y="178.0"/>
+        <omgdi:waypoint x="570.0" y="178.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E6FFE097-F794-49DB-BA36-4920C0747992" id="BPMNEdge_sid-E6FFE097-F794-49DB-BA36-4920C0747992">
+        <omgdi:waypoint x="130.0" y="178.0"/>
+        <omgdi:waypoint x="177.0" y="178.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9A374C60-96D2-4047-8007-ACA125C18DE1" id="BPMNEdge_sid-9A374C60-96D2-4047-8007-ACA125C18DE1">
+        <omgdi:waypoint x="355.2264957264957" y="169.22649572649573"/>
+        <omgdi:waypoint x="423.7327188940092" y="110.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-01E03244-0858-461F-9BA2-B837BEEA0BE9" id="BPMNEdge_sid-01E03244-0858-461F-9BA2-B837BEEA0BE9">
+        <omgdi:waypoint x="363.576" y="178.424"/>
+        <omgdi:waypoint x="420.0" y="178.199203187251"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-5B4551F1-314E-4184-BAEA-06C9E9D1050D" id="BPMNEdge_sid-5B4551F1-314E-4184-BAEA-06C9E9D1050D">
+        <omgdi:waypoint x="277.0" y="178.9364940005853"/>
+        <omgdi:waypoint x="325.85147628988966" y="179.85147628988966"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-8762346B-6F9E-4E5A-9712-7E34F642BF1A" id="BPMNEdge_sid-8762346B-6F9E-4E5A-9712-7E34F642BF1A">
+        <omgdi:waypoint x="514.4444444444445" y="110.0"/>
+        <omgdi:waypoint x="579.4736842105264" y="168.5263157894737"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1A683034-DD4B-453F-9CF8-51F31D999CDA" id="BPMNEdge_sid-1A683034-DD4B-453F-9CF8-51F31D999CDA">
+        <omgdi:waypoint x="517.0588235294117" y="240.0"/>
+        <omgdi:waypoint x="579.1891891891892" y="187.1891891891892"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-8A4FEAB1-9375-448C-810A-4530449EF376" id="BPMNEdge_sid-8A4FEAB1-9375-448C-810A-4530449EF376">
+        <omgdi:waypoint x="609.6144578313254" y="178.3855421686747"/>
+        <omgdi:waypoint x="660.0002509882663" y="178.0838308324056"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
