@@ -1,0 +1,20 @@
+<h3>Task Details</h3>
+
+<div *ngIf="fileShowed">
+  <adf-viewer
+      [(showViewer)]="fileShowed"
+      [fileNodeId]="fileNodeId"
+      [showToolbar]="false">
+  </adf-viewer>
+</div>
+
+<adf-task-details
+  [taskId]="taskId"
+  (formLoaded)="onFormLoaded($event)"
+  [showFormTitle]="false"
+  [showHeaderContent]="false"
+  [showInvolvePeople]="false"
+  [showComments]="false"
+  [showChecklist]="false"
+  [showFormSaveButton]="false">
+</adf-task-details>
