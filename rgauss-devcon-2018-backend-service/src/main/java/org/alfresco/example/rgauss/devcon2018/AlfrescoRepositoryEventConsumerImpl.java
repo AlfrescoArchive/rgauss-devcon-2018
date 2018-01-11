@@ -45,6 +45,16 @@ public class AlfrescoRepositoryEventConsumerImpl implements AlfrescoRepositoryEv
     @Autowired
     private AlfrescoRepositoryRestClient alfrescoRepositoryRestClient;
 
+    @Autowired
+    private AlfrescoProcessServicesRestClient alfrescoProcessServicesRestClient;
+    
+    private String processDefinitionId;
+
+    public void setProcessDefinitionId(String processDefinitionId)
+    {
+        this.processDefinitionId = processDefinitionId;
+    }
+
     /**
      * Processes an event
      * 
@@ -76,7 +86,8 @@ public class AlfrescoRepositoryEventConsumerImpl implements AlfrescoRepositoryEv
             List<RecognitionTagResult> results = parser.parse(nodeEvent.getNodeId(), inputStream);
             repository.save(results);
             
-            // TODO start process instance with tags
+            alfrescoProcessServicesRestClient.startProcessInstance(
+                    processDefinitionId, nodeId, results);
         }
     }
 

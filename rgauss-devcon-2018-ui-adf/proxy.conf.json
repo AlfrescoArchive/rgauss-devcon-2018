@@ -1,11 +1,11 @@
 {
   "/alfresco": {
-    "target": "http://localhost:8080",
+    "target": "http://minikube",
     "secure": false,
     "changeOrigin": true
   },
   "/activiti-app": {
-    "target": "http://localhost:9999",
+    "target": "http://minikube",
     "secure": false,
     "changeOrigin": true
   }

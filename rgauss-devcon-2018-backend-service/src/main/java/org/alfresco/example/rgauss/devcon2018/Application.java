@@ -23,6 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +51,18 @@ public class Application
     @Value("${alfresco.repository.password}")
     private String alfrescoRepositoryPassword;
 
+    @Value("${alfresco.processServices.baseUrl}")
+    private String alfrescoProcessServicesBaseUrl;
+
+    @Value("${alfresco.processServices.username}")
+    private String alfrescoProcessServicesUsername;
+
+    @Value("${alfresco.processServices.password}")
+    private String alfrescoProcessServicesPassword;
+
+    @Value("${alfresco.processServices.processDefinitionId}")
+    private String alfrescoProcessDefinitionId;
+
     @Value("${tika.config}")
     private String tikaConfig;
 
@@ -66,11 +79,14 @@ public class Application
     @Bean
     public AlfrescoRepositoryEventConsumer alfrescoRepositoryEventConsumer()
     {
-        return new AlfrescoRepositoryEventConsumerImpl();
+        AlfrescoRepositoryEventConsumerImpl consumer = new AlfrescoRepositoryEventConsumerImpl();
+        consumer.setProcessDefinitionId(alfrescoProcessDefinitionId);
+        return consumer;
     }
 
     @Bean
-    public AlfrescoRepositoryRestClient alfrescoRepositoryRestClient(RestTemplate restTemplate)
+    public AlfrescoRepositoryRestClient alfrescoRepositoryRestClient(
+            @Qualifier("restTemplateAlfrescoRepository") RestTemplate restTemplate)
     {
         String alfrescoRepositoryRestUrl = alfrescoRepositoryBaseUrl + 
                 "/api/-default-/public/alfresco/versions/1/";
@@ -78,10 +94,28 @@ public class Application
     }
 
     @Bean
-    public RestTemplate restTemplate()
+    public RestTemplate restTemplateAlfrescoRepository()
     {
         RestTemplateBuilder builder = new RestTemplateBuilder();
-        return builder.basicAuthorization(alfrescoRepositoryUsername, alfrescoRepositoryPassword).build();
+        return builder.basicAuthorization(
+                alfrescoRepositoryUsername, alfrescoRepositoryPassword).build();
+    }
+
+    @Bean
+    public AlfrescoProcessServicesRestClient alfrescoProcessServicesRestClient(
+            @Qualifier("restTemplateAlfrescoProcessServices") RestTemplate restTemplate)
+    {
+        String alfrescoRepositoryRestUrl = alfrescoProcessServicesBaseUrl + 
+                "/api/enterprise/";
+        return new AlfrescoProcessServicesRestClient(restTemplate, alfrescoRepositoryRestUrl);
+    }
+
+    @Bean
+    public RestTemplate restTemplateAlfrescoProcessServices()
+    {
+        RestTemplateBuilder builder = new RestTemplateBuilder();
+        return builder.basicAuthorization(
+                alfrescoProcessServicesUsername, alfrescoProcessServicesPassword).build();
     }
 
     @Bean
