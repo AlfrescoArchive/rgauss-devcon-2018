@@ -42,6 +42,9 @@ public class AlfrescoRepositoryEventConsumerImpl implements AlfrescoRepositoryEv
     @Autowired
     private RecognitionTagResultRepository repository;
 
+    @Autowired
+    private AlfrescoRepositoryRestClient alfrescoRepositoryRestClient;
+
     /**
      * Processes an event
      * 
@@ -94,8 +97,6 @@ public class AlfrescoRepositoryEventConsumerImpl implements AlfrescoRepositoryEv
             String path = nodeId.substring(10, nodeId.length());
             return loader.getResourceAsStream(path);
         }
-        // TODO get the content from the Alfresco REST API
-        
-        return null;
+        return alfrescoRepositoryRestClient.getInputStream(nodeId);
     }
 }

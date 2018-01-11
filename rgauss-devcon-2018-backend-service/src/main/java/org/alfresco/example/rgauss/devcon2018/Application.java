@@ -26,7 +26,9 @@ import org.apache.tika.config.TikaConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -38,15 +40,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class Application
 {
     private static final Log logger = LogFactory.getLog(Application.class);
-            
+
+    @Value("${alfresco.repository.baseUrl}")
+    private String alfrescoRepositoryBaseUrl;
+
+    @Value("${alfresco.repository.username}")
+    private String alfrescoRepositoryUsername;
+
+    @Value("${alfresco.repository.password}")
+    private String alfrescoRepositoryPassword;
+
     @Value("${tika.config}")
     private String tikaConfig;
-    
+
     @Value("${cors.allowedOrigin}")
     private String corsAllowedOrigin;
-    
+
     private static final ClassLoader loader = Application.class.getClassLoader();
-    
+
     public static void main(String[] args)
     {
         SpringApplication.run(Application.class, args);
@@ -56,6 +67,21 @@ public class Application
     public AlfrescoRepositoryEventConsumer alfrescoRepositoryEventConsumer()
     {
         return new AlfrescoRepositoryEventConsumerImpl();
+    }
+
+    @Bean
+    public AlfrescoRepositoryRestClient alfrescoRepositoryRestClient(RestTemplate restTemplate)
+    {
+        String alfrescoRepositoryRestUrl = alfrescoRepositoryBaseUrl + 
+                "/api/-default-/public/alfresco/versions/1/";
+        return new AlfrescoRepositoryRestClient(restTemplate, alfrescoRepositoryRestUrl);
+    }
+
+    @Bean
+    public RestTemplate restTemplate()
+    {
+        RestTemplateBuilder builder = new RestTemplateBuilder();
+        return builder.basicAuthorization(alfrescoRepositoryUsername, alfrescoRepositoryPassword).build();
     }
 
     @Bean
@@ -73,9 +99,9 @@ public class Application
         }
         logger.info("Loading TikaConfig from " + tikaConfig);
         InputStream stream = null;
-        if (tikaConfig.startsWith("classpath"))
+        if (tikaConfig.startsWith("classpath:"))
         {
-            stream = loader.getResourceAsStream(tikaConfig);
+            stream = loader.getResourceAsStream(tikaConfig.split("classpath:")[1]);
         }
         else
         {
