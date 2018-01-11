@@ -42,6 +42,20 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-postgresql
                   key: postgres-password
+            - name: ALFRESCO_REPOSITORY_BASEURL
+              value: "{{ .Values.alfresco.repository.baseUrl }}"
+            - name: ALFRESCO_REPOSITORY_USERNAME
+              value: "{{ .Values.alfresco.repository.username }}"
+            - name: ALFRESCO_REPOSITORY_PASSWORD
+              value: "{{ .Values.alfresco.repository.password }}"
+            - name: ALFRESCO_PROCESSSERVICES_BASEURL
+              value: "{{ .Values.alfresco.processServices.baseUrl }}"
+            - name: ALFRESCO_PROCESSSERVICES_USERNAME
+              value: "{{ .Values.alfresco.processServices.username }}"
+            - name: ALFRESCO_PROCESSSERVICES_PASSWORD
+              value: "{{ .Values.alfresco.processServices.password }}"
+            - name: ALFRESCO_PROCESSSERVICES_PROCESSDEFINITIONID
+              value: "{{ .Values.alfresco.processServices.processDefinitionId }}"
             - name: MANAGEMENT_SECURITY_ENABLED
               value: "false"
           ports:

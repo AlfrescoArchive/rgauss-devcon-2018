@@ -20,3 +20,15 @@ eventgateway:
   kafka:
     host: kafka
     port: 9092
+alfresco:
+  repository:
+    baseUrl: http://alfresco
+    # TODO This is obviously a big fat no-no.  Need SSO and API gateway
+    username: username
+    password: password
+  processServices:
+    baseUrl:  http://activiti-app
+    # TODO This is obviously a big fat no-no.  Need SSO and API gateway
+    username: admin@app.activiti.com
+    password: admin
+    processDefinitionId: 1234

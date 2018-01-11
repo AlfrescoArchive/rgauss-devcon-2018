@@ -17,9 +17,9 @@
 package org.alfresco.example.rgauss.devcon2018;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -29,7 +29,6 @@ import javax.persistence.Id;
 public class RecognitionTagResult
 {
     @Id
-    @GeneratedValue
     private String id;
     private String contentId;
     private String value;
@@ -38,11 +37,13 @@ public class RecognitionTagResult
     
     public RecognitionTagResult()
     {
+        this.id = UUID.randomUUID().toString();
     }
     
     public RecognitionTagResult(String contentId, String value, Float confidence, Date datetime)
     {
         super();
+        this.id = UUID.randomUUID().toString();
         this.contentId = contentId;
         this.value = value;
         this.confidence = confidence;

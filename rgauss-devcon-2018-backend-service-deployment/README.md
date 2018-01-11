@@ -60,9 +60,25 @@ export EVENTGATEWAYRELEASE=smelly-cat
 ```
 
 ## Running
+Get the deployed process definition ID from the [process import](../rgauss-devcon-2018-process):
+
+```bash
+export TAG_VERIFICATION_PROCESS_DEFINITION_ID=TagVerification:5:163
+```
+
+Then run the helm commands:
 
 ```bash
 cd helm
 helm depedency update rgauss-devcon-2018-backend-service
-helm install rgauss-devcon-2018-backend-service --set eventgateway.kafka.host="$EVENTGATEWAYRELEASE-kafka" --set eventgateway.zookeeper.host="$EVENTGATEWAYRELEASE-zookeeper"
+helm install rgauss-devcon-2018-backend-service \
+--set eventgateway.kafka.host="$EVENTGATEWAYRELEASE-kafka" \
+--set eventgateway.zookeeper.host="$EVENTGATEWAYRELEASE-zookeeper" \
+--set alfresco.repository.baseUrl="http://$DBPRELEASE-alfresco-content-services-repository/alfresco" \
+--set alfresco.repository.username="admin" \
+--set alfresco.repository.password="admin" \
+--set alfresco.processServices.baseUrl="http://$DBPRELEASE-alfresco-process-services/activiti-app" \
+--set alfresco.processServices.username="admin@app.activiti.com" \
+--set alfresco.processServices.password="admin" \
+--set alfresco.processServices.processDefinitionId="$TAG_VERIFICATION_PROCESS_DEFINITION_ID"
 ```
