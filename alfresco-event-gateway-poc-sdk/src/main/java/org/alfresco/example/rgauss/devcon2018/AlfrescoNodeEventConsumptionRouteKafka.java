@@ -36,6 +36,6 @@ public class AlfrescoNodeEventConsumptionRouteKafka extends RouteBuilder
                 + "&groupId={{kafka.groupId}}"
                 + "&consumersCount={{kafka.consumersCount}}")
         .unmarshal(dataFormat)
-        .to("bean:alfrescoNodeEventConsumer");
+        .to("bean:alfrescoRepositoryEventConsumer");
     }
 }

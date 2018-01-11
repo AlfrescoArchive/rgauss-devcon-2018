@@ -16,18 +16,18 @@
  */
 package org.alfresco.example.rgauss.devcon2018;
 
-import org.alfresco.events.types.BasicNodeEvent;
+import org.alfresco.events.types.RepositoryEvent;
 
 /**
- * Defines a listener for Alfresco node events from the Event Gateway
+ * Defines a listener for Alfresco repository events from the Event Gateway
  */
-public interface AlfrescoNodeEventConsumer
+public interface AlfrescoRepositoryEventConsumer
 {
     /**
-     * Processes a node event
+     * Processes a repository event
      * 
      * @param event
      * @throws Exception
      */
-    public void onReceive(BasicNodeEvent event) throws Exception;
+    public void onReceive(RepositoryEvent event) throws Exception;
 }

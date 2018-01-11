@@ -53,9 +53,9 @@ public class Application
     }
 
     @Bean
-    public AlfrescoNodeEventConsumer alfrescoNodeEventConsumer()
+    public AlfrescoRepositoryEventConsumer alfrescoRepositoryEventConsumer()
     {
-        return new AlfrescoNodeEventConsumerImpl();
+        return new AlfrescoRepositoryEventConsumerImpl();
     }
 
     @Bean

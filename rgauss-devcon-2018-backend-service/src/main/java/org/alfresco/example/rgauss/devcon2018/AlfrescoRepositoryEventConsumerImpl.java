@@ -19,8 +19,8 @@ package org.alfresco.example.rgauss.devcon2018;
 import java.io.InputStream;
 import java.util.List;
 
-import org.alfresco.events.types.BasicNodeEvent;
 import org.alfresco.events.types.NodeContentPutEvent;
+import org.alfresco.events.types.RepositoryEvent;
 import org.apache.camel.Handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,9 +30,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Listens for Alfresco events from the Event Gateway and when a relevant event is encountered
  * sends the content for image tag recognition and persists the results.
  */
-public class AlfrescoNodeEventConsumerImpl implements AlfrescoNodeEventConsumer
+public class AlfrescoRepositoryEventConsumerImpl implements AlfrescoRepositoryEventConsumer
 {
-    private static final Log logger = LogFactory.getLog(AlfrescoNodeEventConsumerImpl.class);
+    private static final Log logger = LogFactory.getLog(AlfrescoRepositoryEventConsumerImpl.class);
 
     private static final ClassLoader loader = Application.class.getClassLoader();
 
@@ -49,7 +49,7 @@ public class AlfrescoNodeEventConsumerImpl implements AlfrescoNodeEventConsumer
      * @throws Exception
      */
     @Handler
-    public void onReceive(BasicNodeEvent event) throws Exception
+    public void onReceive(RepositoryEvent event) throws Exception
     {
         if (event == null)
         {
@@ -60,8 +60,9 @@ public class AlfrescoNodeEventConsumerImpl implements AlfrescoNodeEventConsumer
 
         if (NodeContentPutEvent.EVENT_TYPE.equals(event.getType()))
         {
-            String nodeId = event.getNodeId();
-            InputStream inputStream = getInputStream(event.getNodeId());
+            NodeContentPutEvent nodeEvent = (NodeContentPutEvent) event;
+            String nodeId = nodeEvent.getNodeId();
+            InputStream inputStream = getInputStream(nodeEvent.getNodeId());
 
             if (inputStream == null)
             {
@@ -69,7 +70,7 @@ public class AlfrescoNodeEventConsumerImpl implements AlfrescoNodeEventConsumer
                 return;
             }
 
-            List<RecognitionTagResult> results = parser.parse(event.getNodeId(), inputStream);
+            List<RecognitionTagResult> results = parser.parse(nodeEvent.getNodeId(), inputStream);
             repository.save(results);
             
             // TODO start process instance with tags

@@ -16,7 +16,7 @@
  */
 package org.alfresco.example.rgauss.devcon2018;
 
-import org.alfresco.events.types.BasicNodeEvent;
+import org.alfresco.events.types.RepositoryEvent;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.spi.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Configuration
-public class AlfrescoNodeEventConsumptionConfiguration
+public class AlfrescoRepositoryEventConsumptionConfiguration
 {
     @Autowired
     private ObjectMapper objectMapper;
@@ -47,7 +47,7 @@ public class AlfrescoNodeEventConsumptionConfiguration
     @Bean
     public DataFormat dataFormat()
     {
-        JacksonDataFormat dataFormat = new JacksonDataFormat(objectMapper, BasicNodeEvent.class);
+        JacksonDataFormat dataFormat = new JacksonDataFormat(objectMapper, RepositoryEvent.class);
         return dataFormat;
     }
 }
