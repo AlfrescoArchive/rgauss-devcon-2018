@@ -1,0 +1,7 @@
+dependencies:
+  - name: inception-rest-tika
+    version: 0.1
+    repository: file://../inception-rest-tika
+  - name: postgresql
+    version: ^0.8.3
+    repository: https://kubernetes-charts.storage.googleapis.com

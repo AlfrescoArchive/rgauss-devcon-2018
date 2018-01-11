@@ -16,8 +16,11 @@
  */
 package org.alfresco.example.rgauss.devcon2018;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +37,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 public class Application
 {
-    
+    private static final Log logger = LogFactory.getLog(Application.class);
+            
     @Value("${tika.config}")
     private String tikaConfig;
     
@@ -63,7 +67,20 @@ public class Application
     @Bean
     public Tika tika() throws Exception
     {
-        InputStream stream = loader.getResourceAsStream(tikaConfig);
+        if (tikaConfig == null)
+        {
+            throw new Exception("tika.config property must not be null");
+        }
+        logger.info("Loading TikaConfig from " + tikaConfig);
+        InputStream stream = null;
+        if (tikaConfig.startsWith("classpath"))
+        {
+            stream = loader.getResourceAsStream(tikaConfig);
+        }
+        else
+        {
+            stream = new FileInputStream(tikaConfig);
+        }
         return new Tika(new TikaConfig(stream));
     }
 

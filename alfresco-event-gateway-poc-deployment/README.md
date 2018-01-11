@@ -80,7 +80,7 @@ You can then run various tools from inside the cluster, i.e.:
 ```bash
 kubectl exec -ti kafkatestclient -- ./bin/kafka-topics.sh --zookeeper $EVENTGATEWAYRELEASE-zookeeper:2181 --list
 
-kubectl exec -ti kafkatestclient -- ./bin/kafka-console-consumer.sh --zookeeper $EVENTGATEWAYRELEASE-zookeeper:2181 --topic alfresco.repo.events.nodes
+kubectl exec -ti kafkatestclient -- ./bin/kafka-console-consumer.sh --bootstrap-server $EVENTGATEWAYRELEASE-kafka:9092 --topic alfresco.repo.events.nodes
 
 kubectl exec -ti kafkatestclient -- ./bin/kafka-console-producer.sh --broker-list $EVENTGATEWAYRELEASE-kafka:9092 --topic alfresco.repo.events.nodes
 ```

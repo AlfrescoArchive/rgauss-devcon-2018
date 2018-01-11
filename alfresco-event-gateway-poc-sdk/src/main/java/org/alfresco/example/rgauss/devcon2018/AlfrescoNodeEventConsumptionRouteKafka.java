@@ -31,10 +31,11 @@ public class AlfrescoNodeEventConsumptionRouteKafka extends RouteBuilder
     
     @Override
     public void configure() throws Exception {
-        from("kafka:{{kafka.host}}:{{kafka.port}}"
+        from("kafka:{{kafka.topic.nodeEvents}}"
                 + "?brokers={{kafka.host}}:{{kafka.port}}"
-                + "&topic={{kafka.topic.nodeEvents}}")
+                + "&groupId={{kafka.groupId}}"
+                + "&consumersCount={{kafka.consumersCount}}")
         .unmarshal(dataFormat)
-        .to("bean:alfrescoNodeEventListener");
+        .to("bean:alfrescoNodeEventConsumer");
     }
 }

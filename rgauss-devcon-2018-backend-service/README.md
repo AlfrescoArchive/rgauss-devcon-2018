@@ -17,6 +17,10 @@ In a Kubernetes cluster that endpoint would be the name of the K8s service.
 
 # Building
 
+You must first install the `alfresco-event-gateway-poc-sdk` artifact.  See [alfresco-event-gateway-poc-sdk](../alfresco-event-gateway-poc-sdk).
+
+Then build the service:
+
 ```bash
 mvn clean package
 ```
@@ -34,7 +38,7 @@ docker run -p 5432:5432 --name postgres postgres:9.4
 Then run the service:
 
 ```bash
-java -Dspring.datasource.username=postgres -jar target/rgauss-devcon-2018-backend-service-0.1-SNAPSHOT.jar
+java -Dspring.datasource.username=postgres -Dkafka.host=localhost -jar target/rgauss-devcon-2018-backend-service-0.1-SNAPSHOT.jar
 ```
 
 You can then access the REST API at `http://localhost:8080/recognition-results`.

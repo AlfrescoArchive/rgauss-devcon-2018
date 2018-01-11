@@ -1,0 +1,12 @@
+replicaCount: 1
+
+image:
+  repository: uscdatascience/inception-rest-tika
+  tag: latest
+  pullPolicy: IfNotPresent
+  internalPort: 8764
+service:
+  name: inception-rest-tika-service
+  # If running on AWS choose LoadBalancer as service Type
+  type: NodePort
+  externalPort: 8764

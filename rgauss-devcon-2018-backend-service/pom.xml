@@ -112,6 +112,17 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>alfresco.snapshots</id>
+            <name>Alfresco Development Snapshot Repository</name>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
 </project>

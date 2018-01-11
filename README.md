@@ -34,13 +34,7 @@ See [alfresco-event-gateway-poc](alfresco-event-gateway-poc/)
 
 ## 3. Build Tika / TensorFlow Docker Image
 
-https://wiki.apache.org/tika/TikaAndVision#Step_1._Setup_REST_Server
 
-```bash
-git clone https://github.com/USCDataScience/tika-dockers.git && cd tika-dockers
-docker build -f InceptionRestDockerfile -t uscdatascience/inception-rest-tika .
-docker run -p 8764:8764 -it uscdatascience/inception-rest-tika
-```
 
 TODO: Helm chart
 

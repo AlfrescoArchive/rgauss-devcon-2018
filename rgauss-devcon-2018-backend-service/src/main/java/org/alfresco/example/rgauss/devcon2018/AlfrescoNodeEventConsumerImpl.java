@@ -71,6 +71,8 @@ public class AlfrescoNodeEventConsumerImpl implements AlfrescoNodeEventConsumer
 
             List<RecognitionTagResult> results = parser.parse(event.getNodeId(), inputStream);
             repository.save(results);
+            
+            // TODO start process instance with tags
         }
     }
 

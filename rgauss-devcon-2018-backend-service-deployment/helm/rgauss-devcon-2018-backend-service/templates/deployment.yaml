@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "rgauss-devcon-2018-backend-service.fullname" . }}
+  labels:
+    app: {{ template "rgauss-devcon-2018-backend-service.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rgauss-devcon-2018-backend-service.fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+      - name: init-kafka
+        image: solsson/kafka:0.11.0.0
+        env:
+        - name: ZOOKEEPER
+          value: {{ .Values.eventgateway.zookeeper.host }}:{{ .Values.eventgateway.zookeeper.port }}
+        command: ['sh', '-c', 'until /opt/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER --list; do echo "Waiting for Kafka availability"; sleep 5; done;']
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: KAFKA_HOST
+              value: "{{ .Values.eventgateway.kafka.host }}"
+            - name: KAFKA_PORT
+              value: "{{ .Values.eventgateway.kafka.port }}"
+            - name: TIKA_CONFIG
+              value: "/rgauss-devcon-2018-backend-service-config/tika-config.xml"
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://{{ .Release.Name }}-postgresql/postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql
+                  key: postgres-password
+            - name: MANAGEMENT_SECURITY_ENABLED
+              value: "false"
+          ports:
+            - containerPort: {{ .Values.image.internalPort }}
+          volumeMounts:
+            - mountPath: /rgauss-devcon-2018-backend-service-config
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: {{ template "rgauss-devcon-2018-backend-service.fullname" . }}
+            items:
+              - key: tika-config.xml
+                path: tika-config.xml

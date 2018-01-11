@@ -1,0 +1,22 @@
+replicaCount: 1
+#registryPullSecrets: quay-registry-secret
+
+image:
+  repository: alfresco/rgauss-devcon-2018-backend-service
+  tag: 0.1-SNAPSHOT
+  pullPolicy: IfNotPresent
+  internalPort: 8080
+service:
+  name: rgauss-devcon-2018-backend-service
+  # If running on AWS choose LoadBalancer as service Type
+  type: NodePort
+  externalPort: 8080
+ingress:
+  path: /rgauss-devcon-2018-backend-service
+eventgateway:
+  zookeeper:
+    host: zookeeper
+    port: 2181
+  kafka:
+    host: kafka
+    port: 9092
