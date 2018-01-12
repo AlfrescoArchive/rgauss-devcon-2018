@@ -37,10 +37,18 @@ An Alfresco Process Services [process is defined](rgauss-devcon-2018-process) fo
 
 End-users access the UI to verify tags.
 
+![UI Screenshot](docs/images/ui-screenshot.png)
+
 ### Technologies Involved
 
 * [Alfresco Application Development Framework](https://community.alfresco.com/community/application-development-framework)
 * [NGINX Web Server](https://www.nginx.com/)
+
+# Deployment
+
+The example includes [Helm](https://helm.sh/) charts for easy deployment and management on Kubernetes.
+
+Be sure to check out the [Alfresco Anaxes Shipyard](https://github.com/Alfresco/alfresco-anaxes-shipyard) and the related [Hello World example](https://github.com/Alfresco/alfresco-anaxes-hello-world).
 
 # Setup
 
