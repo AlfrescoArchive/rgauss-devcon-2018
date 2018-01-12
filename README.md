@@ -5,7 +5,7 @@ In this exercise we'll develop a custom application on top of the Alfresco Digit
 # Architecture
 ![Architecture Diagram](docs/images/architecture-diagram.png)
 
-## Alfresco Content Services
+## [Alfresco Content Services](https://www.alfresco.com/platform/content-services-ecm)
 
 Various users will be adding content to the repository.
 
@@ -27,7 +27,7 @@ It can also return a history of past tagging results via REST API.
 * [Apache Kafka](https://kafka.apache.org/)
 * [Spring Boot](https://projects.spring.io/spring-boot/)
 
-## Alfresco Process Services
+## [Alfresco Process Services](https://www.alfresco.com/platform/process-services-bpm)
 
 An Alfresco Process Services [process is defined](rgauss-devcon-2018-process) for designated users to verify the resulting tags.
 
@@ -48,31 +48,31 @@ End-users access the UI to verify tags.
 
 See [alfresco-dbp-deployment](https://github.com/Alfresco/alfresco-dbp-deployment)
 
-## 2. Create Tagging User
-
-At the moment the example requires a user with the same username and password in both ACS and APS.
-
-## 3. Alfresco Event Gateway PoC
+## 2. Alfresco Event Gateway PoC
 
 See [alfresco-event-gateway-poc-deployment](alfresco-event-gateway-poc-depoyment)
 
-## 4. Tika / TensorFlow Docker Image
+## 3. Tika / TensorFlow Docker Image
 
 See [Tika / TensorFlow](rgauss-devcon-2018-backend-service)
+
+## 4. Create Tagging User
+
+At the moment the example requires a user with the same username and password in both ACS and APS.
 
 ## 5. Import APS Process
 
 See [rgauss-devcon-2018-process](rgauss-devcon-2018-process)
 
-## 5. Backend Service
+## 6. Backend Service
 
 See [rgauss-devcon-2018-backend-service-deployment](rgauss-devcon-2018-backend-service-deployment)
 
-## 6. UI
+## 7. UI
 
 See [rgauss-devcon-2018-ui-deployment](rgauss-devcon-2018-ui-deployment)
 
 
 
-TODO: Helm chart
+TODO: Parent Helm chart
 
