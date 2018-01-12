@@ -12,7 +12,7 @@ To build the Docker image run the script which gets the service jar:
 ./build-prep.sh
 ```
 
-if building using to deploy within Minikube:
+if building to deploy within Minikube:
 
 ```bash
 eval $(minikube docker-env)
@@ -87,7 +87,7 @@ kubectl exec -ti kafkatestclient -- ./bin/kafka-console-producer.sh --broker-lis
 
 ### ActiveMQ
 
-To view the admin console of ActiveMQ:
+To view the admin console of ActiveMQ (Minikube example):
 
 ```bash
 export ELBADDRESS=$(minikube ip);

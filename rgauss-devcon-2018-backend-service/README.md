@@ -7,11 +7,26 @@ Provides a service that:
 * Starts an instance of the tag verification process
 * Returns a history of past tagging results via REST API
 
+# Tika / TensorFlow
+
+Tika has a parser available which talks to a running [TensorFlow service via REST API](https://wiki.apache.org/tika/TikaAndVision#Step_1._Setup_REST_Server) which can be used via Docker.
+
+If building to deploy within Minikube:
+
+```bash
+eval $(minikube docker-env)
+```
+
+then build the `inception-rest-tika` Docker image (perhaps in a different directory):
+
+```bash
+git clone https://github.com/USCDataScience/tika-dockers.git && cd tika-dockers
+docker build -f InceptionRestDockerfile -t uscdatascience/inception-rest-tika .
+```
+
 # Configuration
 
-Tika has a parser available which talks to a running [TensorFlow service via REST API](https://wiki.apache.org/tika/TikaAndVision#Step_1._Setup_REST_Server).
-
-The URI for that REST endpoint should be configured using the `apiBaseUri` param in `[tika-config-tflow-rest.xml](src/main/resources/tika/tika-config-tflow-rest.xml)`.
+The URI for the TensorFlow REST endpoint should be configured using the `apiBaseUri` param in `[tika-config-tflow-rest.xml](src/main/resources/tika/tika-config-tflow-rest.xml)`.
 
 In a Kubernetes cluster that endpoint would be the name of the K8s service.
 

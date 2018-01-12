@@ -24,12 +24,7 @@ build the service Docker image:
 docker build -t alfresco/rgauss-devcon-2018-backend-service:0.1-SNAPSHOT .
 ```
 
-build the `inception-rest-tika` [Docker image](https://wiki.apache.org/tika/TikaAndVision#Step_1._Setup_REST_Server) (perhaps in a different directory):
-
-```bash
-git clone https://github.com/USCDataScience/tika-dockers.git && cd tika-dockers
-docker build -f InceptionRestDockerfile -t uscdatascience/inception-rest-tika .
-```
+Note that you also need the [inception-rest-tika](../rgauss-devcon-2018-backend-service) image.
 
 # Run via Helm
 

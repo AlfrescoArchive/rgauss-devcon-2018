@@ -1,6 +1,8 @@
 
 # Build Docker Image
 
+You must first build the tar artifact.  See [rgauss-devcon-2018-ui](../rgauss-devcon-2018-ui).
+
 To build the Docker image run the script which gets the app distribution artifact:
 
 ```bash
