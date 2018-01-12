@@ -33,7 +33,7 @@ An Alfresco Process Services [process is defined](rgauss-devcon-2018-process) fo
 
 ![Tag Verification Process](rgauss-devcon-2018-process/docs/images/tag-verification-process.png)
 
-## [UI Application](alfresco-devcon-2018)
+## [UI Application](rgauss-devcon-2018-ui)
 
 End-users access the UI to verify tags.
 
