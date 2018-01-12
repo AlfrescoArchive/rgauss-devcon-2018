@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "rgauss-devcon-2018-ui.fullname" . }}
+  labels:
+    app: {{ template "rgauss-devcon-2018-ui.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rgauss-devcon-2018-ui.fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ECM_BPM_HOST
+              value: "{{ .Values.ecmbpm.host }}"
+            - name: ECM_BPM_PORT
+              value: "{{ .Values.ecmbpm.port }}"
+          ports:
+            - containerPort: {{ .Values.image.internalPort }}
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /
+              port: {{ .Values.image.internalPort }}
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /
+              port: {{ .Values.image.internalPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            {{ toYaml .Values.resources | indent 12 }}
+            {{- if .Values.nodeSelector }}
+            nodeSelector:
+              {{ toYaml .Values.nodeSelector | indent 8 }}
+              {{- end }}

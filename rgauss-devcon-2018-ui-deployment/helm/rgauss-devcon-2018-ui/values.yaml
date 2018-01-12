@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: alfresco/rgauss-devcon-2018-ui
+  tag: 0.1-SNAPSHOT
+  pullPolicy: IfNotPresent
+  internalPort: 80
+service:
+  name: rgauss-devcon-2018-ui
+  # If running on AWS choose LoadBalancer as service Type
+  type: NodePort
+  externalPort: 80
+ingress:
+  path: /rgauss-devcon-2018-ui
+api:
+  # These may need to be overridden when deploying
+  url: /rgauss-devcon-2018-service
+# Bit of a hack to allow local and K8s envs with current app.config
+ecmbpm:
+  host: minikube
+  port: 80

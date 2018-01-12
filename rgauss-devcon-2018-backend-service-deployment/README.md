@@ -1,6 +1,6 @@
 # Overview
 
-This project contains the artifacts to deploy the Alfresco Event Gateway PoC via Docker and Kubernetes.
+This project contains the artifacts to deploy rgauss DevCon 2018 backend service via Docker and Kubernetes.
 
 # Build Docker Image
 
