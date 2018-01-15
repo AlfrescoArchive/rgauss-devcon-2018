@@ -81,6 +81,19 @@ See [rgauss-devcon-2018-backend-service-deployment](rgauss-devcon-2018-backend-s
 See [rgauss-devcon-2018-ui-deployment](rgauss-devcon-2018-ui-deployment)
 
 
+# TODO
 
-TODO: Parent Helm chart
+## API Gateway
+
+All REST calls from both the UI and backend service should go through the API Gateway rather than directly to individual services.
+
+## SSO
+
+The UI should redirect to the common auth service for login.
+
+Both the UI and the backend service should obtain an 'external' token from the common auth service which can then be presented to the API Gateway which will exchange it for an 'internal' token to be passed to the consuming services within the DBP.
+
+## Helm Improvements
+
+A parent Helm chart could be developed which declares the backend service and UI as requirement charts, though in this case it might make more sense to keep them separate as they are not tightly coupled and could certainly have different lifecycles.
 
