@@ -54,11 +54,11 @@ Be sure to check out the [Alfresco Anaxes Shipyard](https://github.com/Alfresco/
 
 ## 1. Alfresco DBP Deployment
 
-See [alfresco-dbp-deployment](https://github.com/Alfresco/alfresco-dbp-deployment)
+See [alfresco-dbp-deployment](https://github.com/Alfresco/alfresco-dbp-deployment) (currently private unfortunately, but the other components are usuable against other forms of deployment as well)
 
 ## 2. Alfresco Event Gateway PoC
 
-See [alfresco-event-gateway-poc-deployment](alfresco-event-gateway-poc-depoyment)
+See [alfresco-event-gateway-poc-deployment](alfresco-event-gateway-poc-deployment)
 
 ## 3. Tika / TensorFlow Docker Image
 
